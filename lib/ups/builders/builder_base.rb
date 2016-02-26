@@ -162,6 +162,7 @@ module UPS
 
       def initialize_xml_roots(root_name)
         self.document = Document.new
+        self.document << Instruct.new('xml version=\'1.0\'')
         self.root = Element.new(root_name)
         self.shipment_root = Element.new('Shipment')
         self.access_request = Element.new('AccessRequest')

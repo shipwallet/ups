@@ -21,6 +21,7 @@ module UPS
     SHIP_CONFIRM_PATH = '/ups.app/xml/ShipConfirm'
     SHIP_ACCEPT_PATH = '/ups.app/xml/ShipAccept'
     ADDRESS_PATH = '/ups.app/xml/XAV'
+    LOCATOR_PATH = '/ups.app/xml/Locator'
 
     DEFAULT_PARAMS = {
       test_mode: false
@@ -52,6 +53,9 @@ module UPS
         yield rate_builder
       end
 
+      puts rate_builder.to_xml
+
+
       response = get_response_stream RATE_PATH, rate_builder.to_xml
       UPS::Parsers::RatesParser.new.tap do |parser|
         Ox.sax_parse(parser, response)
@@ -80,6 +84,21 @@ module UPS
       accept_builder = build_accept_request_from_confirm(confirm_builder,
                                                          confirm_response)
       make_accept_request accept_builder
+    end
+
+    def locator(locator_builder = nil)
+      if locator_builder.nil? && block_given?
+        locator_builder = Builders::LocatorBuilder.new
+        yield locator_builder
+      end
+
+      puts locator_builder.to_xml
+
+      response = get_response_stream LOCATOR_PATH, locator_builder.to_xml
+      UPS::Parsers::LocatorParser.new.tap do |parser|
+        Ox.sax_parse(parser, response)
+      end
+
     end
 
     private
