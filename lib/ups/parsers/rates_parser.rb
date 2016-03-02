@@ -29,10 +29,16 @@ module UPS
         super
         if switch_active?(:RatedShipment, :Service, :Code)
           parse_service_code value
-        elsif switch_active?(:RatedShipment, :TotalCharges)
+        elsif switch_active?(:RatedShipment, :TotalCharges, :MonetaryValue)
           parse_total_charges value
+        elsif switch_active?(:RatedShipment, :TotalCharges, :CurrencyCode)
+          parse_total_charges_currency_code value
         elsif switch_active?(:RatedShipment, :NegotiatedRates, :MonetaryValue)
           parse_negotiated_rate value
+        elsif switch_active?(:RatedShipment, :GuaranteedDaysToDelivery)
+          parse_guaranteed_days_to_delivery value
+        elsif switch_active?(:RatedShipment, :ScheduledDeliveryTime)
+          parse_scheduled_delivery_time value
         end
       end
 
@@ -47,6 +53,18 @@ module UPS
 
       def parse_total_charges(value)
         @current_rate[:total] = value.as_s
+      end
+
+      def parse_total_charges_currency_code(value)
+        @current_rate[:total_currency_code] = value.as_s
+      end
+
+      def parse_guaranteed_days_to_delivery(value)
+        @current_rate[:guaranteed_days_to_delivery] = value.as_s
+      end
+
+      def parse_scheduled_delivery_time(value)
+        @current_rate[:scheduled_delivery_time] = value.as_s
       end
     end
   end

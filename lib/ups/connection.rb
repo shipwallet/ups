@@ -95,6 +95,8 @@ module UPS
       puts locator_builder.to_xml
 
       response = get_response_stream LOCATOR_PATH, locator_builder.to_xml
+      # doc = Ox.parse(xml)
+      # puts doc
       UPS::Parsers::LocatorParser.new.tap do |parser|
         Ox.sax_parse(parser, response)
       end
@@ -109,6 +111,7 @@ module UPS
 
     def get_response_stream(path, body)
       response = Typhoeus.post(build_url(path), body: body)
+      puts response.body
       StringIO.new(response.body)
     end
 

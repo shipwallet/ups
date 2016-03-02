@@ -15,11 +15,11 @@ module UPS
   end
 
   module Parsers
-    autoload :ParserBase,          'ups/parsers/parser_base'
-    autoload :RatesParser,         'ups/parsers/rates_parser'
-    autoload :ShipConfirmParser,   'ups/parsers/ship_confirm_parser'
-    autoload :ShipAcceptParser,    'ups/parsers/ship_accept_parser'
-    autoload :LocatorParser,      'ups/parsers/locator_parser'
+    autoload :ParserBase,             'ups/parsers/parser_base'
+    autoload :RatesParser,            'ups/parsers/rates_parser'
+    autoload :ShipConfirmParser,      'ups/parsers/ship_confirm_parser'
+    autoload :ShipAcceptParser,       'ups/parsers/ship_accept_parser'
+    autoload :LocatorParser,          'ups/parsers/locator_parser'
   end
 
   module Builders
