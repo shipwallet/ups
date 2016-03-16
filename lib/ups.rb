@@ -20,17 +20,20 @@ module UPS
     autoload :ShipConfirmParser,      'ups/parsers/ship_confirm_parser'
     autoload :ShipAcceptParser,       'ups/parsers/ship_accept_parser'
     autoload :LocatorParser,          'ups/parsers/locator_parser'
+    autoload :TimeInTransitParser,    'ups/parsers/time_in_transit_parser'
   end
 
   module Builders
-    autoload :BuilderBase,         'ups/builders/builder_base'
-    autoload :RateBuilder,         'ups/builders/rate_builder'
-    autoload :AddressBuilder,      'ups/builders/address_builder'
-    autoload :ShipConfirmBuilder,  'ups/builders/ship_confirm_builder'
-    autoload :ShipAcceptBuilder,   'ups/builders/ship_accept_builder'
-    autoload :OrganisationBuilder, 'ups/builders/organisation_builder'
-    autoload :ShipperBuilder,      'ups/builders/shipper_builder'
-    autoload :LocatorBuilder,      'ups/builders/locator_builder'
-    autoload :AddressKeyFormatBuilder, 'ups/builders/address_key_format_builder'
+    autoload :BuilderBase,                  'ups/builders/builder_base'
+    autoload :RateBuilder,                  'ups/builders/rate_builder'
+    autoload :AddressBuilder,               'ups/builders/address_builder'
+    autoload :ShipConfirmBuilder,           'ups/builders/ship_confirm_builder'
+    autoload :ShipAcceptBuilder,            'ups/builders/ship_accept_builder'
+    autoload :OrganisationBuilder,          'ups/builders/organisation_builder'
+    autoload :ShipperBuilder,               'ups/builders/shipper_builder'
+    autoload :LocatorBuilder,               'ups/builders/locator_builder'
+    autoload :AddressKeyFormatBuilder,      'ups/builders/address_key_format_builder'
+    autoload :AddressArtifactFormatBuilder, 'ups/builders/address_artifact_format_builder'
+    autoload :TimeInTransitBuilder,         'ups/builders/time_in_transit_builder'
   end
 end

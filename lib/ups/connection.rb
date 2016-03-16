@@ -22,6 +22,7 @@ module UPS
     SHIP_ACCEPT_PATH = '/ups.app/xml/ShipAccept'
     ADDRESS_PATH = '/ups.app/xml/XAV'
     LOCATOR_PATH = '/ups.app/xml/Locator'
+    TIME_IN_TRANSIT_PATH = '/ups.app/xml/TimeInTransit'
 
     DEFAULT_PARAMS = {
       test_mode: false
@@ -86,21 +87,52 @@ module UPS
       make_accept_request accept_builder
     end
 
+    # Makes a request to locate UPS locations
+    #
+    # A pre-configured {Builders::LocatorBuilder} object can be passed as
+    # the first option or a block yielded to configure a new
+    # {Builders::LocatorBuilder} object.
+    #
+    # @param [Builders::LocatorBuilder] locator_builder A pre-configured
+    #   {Builders::LocatorBuilder} object to use
+    # @yield [locator_builder] A LocatorBuilder object for configuring
+    #   the location information sent
     def locator(locator_builder = nil)
       if locator_builder.nil? && block_given?
         locator_builder = Builders::LocatorBuilder.new
         yield locator_builder
       end
 
-      puts locator_builder.to_xml
+#      puts locator_builder.to_xml
 
       response = get_response_stream LOCATOR_PATH, locator_builder.to_xml
-      # doc = Ox.parse(xml)
-      # puts doc
       UPS::Parsers::LocatorParser.new.tap do |parser|
         Ox.sax_parse(parser, response)
       end
+    end
 
+    # Makes a request for delivery times
+    #
+    # A pre-configured {Builders::TimeInTransitBuilder} object can be passed as
+    # the first option or a block yielded to configure a new
+    # {Builders::TimeInTransitBuilder} object.
+    #
+    # @param [Builders::TimeInTransitBuilder] time_in_transit_builder A pre-configured
+    #   {Builders::TimeInTransitBuilder} object to use
+    # @yield [time_in_transit_builder] A TimeInTransitBuilder object for configuring
+    #   the transit information sent
+    def time_in_transit(time_in_transit_builder = nil)
+      if time_in_transit_builder.nil? && block_given?
+        time_in_transit_builder = Builders::TimeInTransitBuilder.new
+        yield time_in_transit_builder
+      end
+
+      puts time_in_transit_builder.to_xml
+
+      response = get_response_stream TIME_IN_TRANSIT_PATH, time_in_transit_builder.to_xml
+      UPS::Parsers::TimeInTransitParser.new.tap do |parser|
+        Ox::sax_parse(parser, response)
+      end
     end
 
     private
