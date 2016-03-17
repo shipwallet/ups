@@ -23,6 +23,7 @@ module UPS
     ADDRESS_PATH = '/ups.app/xml/XAV'
     LOCATOR_PATH = '/ups.app/xml/Locator'
     TIME_IN_TRANSIT_PATH = '/ups.app/xml/TimeInTransit'
+    TRACKING_PATH = '/ups.app/xml/Track'
 
     DEFAULT_PARAMS = {
       test_mode: false
@@ -131,6 +132,30 @@ module UPS
 
       response = get_response_stream TIME_IN_TRANSIT_PATH, time_in_transit_builder.to_xml
       UPS::Parsers::TimeInTransitParser.new.tap do |parser|
+        Ox::sax_parse(parser, response)
+      end
+    end
+
+    # Makes a request for tracking data
+    #
+    # A pre-configured {Builders::TrackingBuilder} object can be passed as
+    # the first option or a block yielded to configure a new
+    # {Builders::TrackingBuilder} object.
+    #
+    # @param [Builders::TrackingBuilder] tracking_builder A pre-configured
+    #   {Builders::TrackingBuilder} object to use
+    # @yield [time_in_transit_builder] A TrackingBuilder object for configuring
+    #   the tracking information sent
+    def tracking(tracking_builder = nil)
+      if tracking_builder.nil? && block_given?
+        tracking_builder = Builders::TrackingBuilder.new
+        yield tracking_builder
+      end
+
+      puts tracking_builder.to_xml
+
+      response = get_response_stream TRACKING_PATH, tracking_builder.to_xml
+      UPS::Parsers::TrackingParser.new.tap do |parser|
         Ox::sax_parse(parser, response)
       end
     end

@@ -21,6 +21,7 @@ module UPS
     autoload :ShipAcceptParser,       'ups/parsers/ship_accept_parser'
     autoload :LocatorParser,          'ups/parsers/locator_parser'
     autoload :TimeInTransitParser,    'ups/parsers/time_in_transit_parser'
+    autoload :TrackingParser,         'ups/parsers/tracking_parser'
   end
 
   module Builders
@@ -35,5 +36,6 @@ module UPS
     autoload :AddressKeyFormatBuilder,      'ups/builders/address_key_format_builder'
     autoload :AddressArtifactFormatBuilder, 'ups/builders/address_artifact_format_builder'
     autoload :TimeInTransitBuilder,         'ups/builders/time_in_transit_builder'
+    autoload :TrackingBuilder,              'ups/builders/tracking_builder'
   end
 end
