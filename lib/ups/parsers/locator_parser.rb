@@ -12,7 +12,6 @@ module UPS
 
       def start_element(name)
         super
-        puts name
       end
 
       def end_element(name)

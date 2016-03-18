@@ -2,7 +2,7 @@ module UPS
   module Builders
     class LocatorBuilder < BuilderBase
 
-      attr_accessor :location_search_criteria_root, :translate_root, :unit_of_measurement_root
+      attr_accessor :location_search_criteria_root, :translate_root, :unit_of_measurement_root, :origin_address_root
 
       # Initializes a new {LocatorBuilder} object
       #
@@ -20,11 +20,14 @@ module UPS
 
         self.location_search_criteria_root = Element.new('LocationSearchCriteria')
         root << self.location_search_criteria_root
+
+        self.origin_address_root = Element.new('OriginAddress')
+        root << self.origin_address_root
       end
 
-      # Adds an OriginAddress section to the XML document being built
+      # Adds an AddressKeyFormat to the OriginAddress node
       #
-      # @param [Hash] opts The Address Parts
+      # @param [Hash] opts the Address
       # @option opts [String] :address_line_1 Address Line 1
       # @option opts [String] :city City
       # @option opts [String] :state State
@@ -32,10 +35,18 @@ module UPS
       # @option opts [String] :country Country
       # @raise [InvalidAttributeError] If the passed :state is nil or an empty string and the :country is IE
       # @return [void]
-      def add_origin_address(opts = {})
-        root << Element.new('OriginAddress').tap do |elem|
-          elem << AddressKeyFormatBuilder.new(opts).to_xml
-        end
+      def add_origin_address_key_format(opts = {})
+        self.origin_address_root << AddressKeyFormatBuilder.new(opts).to_xml
+      end
+
+      # Adds GeoCode to the OriginAddress node
+      #
+      # @param [Hash] opts the Geocode
+      # @param opts [String] :latitude Latitude
+      # @param opts [String] :longitude Longitude
+      # @return [void]
+      def add_origin_address_geocode(opts = {})
+        self.origin_address_root << GeocodeBuilder.new(opts).to_xml
       end
 
       # Adds an SearchOption item to the XML document beeing built

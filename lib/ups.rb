@@ -37,5 +37,6 @@ module UPS
     autoload :AddressArtifactFormatBuilder, 'ups/builders/address_artifact_format_builder'
     autoload :TimeInTransitBuilder,         'ups/builders/time_in_transit_builder'
     autoload :TrackingBuilder,              'ups/builders/tracking_builder'
+    autoload :GeocodeBuilder,               'ups/builders/geocode_builder'
   end
 end

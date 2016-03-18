@@ -5,7 +5,7 @@ module UPS
         super 'TrackRequest'
 
         self.document.nodes.insert 2,Instruct.new('xml version=\'1.0\'')
-        add_request('Track', '')
+        add_request('Track', '1')
 
       end
 

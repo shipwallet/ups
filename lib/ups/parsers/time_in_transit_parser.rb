@@ -20,6 +20,8 @@ module UPS
         super
         if switch_active?(:ServiceSummary, :Service, :Code)
           @current_service_summary[:ServiceCode] = value.as_s
+        elsif switch_active?(:ServiceSummary, :Service, :Description)
+          @current_service_summary[:ServiceDescription] = value.as_s
         elsif switch_active?(:EstimatedArrival, :BusinessTransitDays)
           @current_service_summary[:BusinessTransitDays] = value.as_s
         elsif switch_active?(:EstimatedArrival, :TotalTransitDays)

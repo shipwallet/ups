@@ -55,9 +55,6 @@ module UPS
         yield rate_builder
       end
 
-      puts rate_builder.to_xml
-
-
       response = get_response_stream RATE_PATH, rate_builder.to_xml
       UPS::Parsers::RatesParser.new.tap do |parser|
         Ox.sax_parse(parser, response)
@@ -104,8 +101,6 @@ module UPS
         yield locator_builder
       end
 
-#      puts locator_builder.to_xml
-
       response = get_response_stream LOCATOR_PATH, locator_builder.to_xml
       UPS::Parsers::LocatorParser.new.tap do |parser|
         Ox.sax_parse(parser, response)
@@ -127,8 +122,6 @@ module UPS
         time_in_transit_builder = Builders::TimeInTransitBuilder.new
         yield time_in_transit_builder
       end
-
-      puts time_in_transit_builder.to_xml
 
       response = get_response_stream TIME_IN_TRANSIT_PATH, time_in_transit_builder.to_xml
       UPS::Parsers::TimeInTransitParser.new.tap do |parser|
@@ -152,8 +145,6 @@ module UPS
         yield tracking_builder
       end
 
-      puts tracking_builder.to_xml
-
       response = get_response_stream TRACKING_PATH, tracking_builder.to_xml
       UPS::Parsers::TrackingParser.new.tap do |parser|
         Ox::sax_parse(parser, response)
@@ -168,7 +159,6 @@ module UPS
 
     def get_response_stream(path, body)
       response = Typhoeus.post(build_url(path), body: body)
-      puts response.body
       StringIO.new(response.body)
     end
 
