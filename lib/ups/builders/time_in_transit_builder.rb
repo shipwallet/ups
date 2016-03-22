@@ -1,4 +1,4 @@
-require 'Time'
+require 'time'
 
 module UPS
   module Builders
