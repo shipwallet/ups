@@ -5,8 +5,9 @@ module UPS
     '03' => 'Ground',
     '05' => 'UPS Worldwide Expedited',
     '07' => 'Express',
-    '08' => 'Expedited',
-    '11' => 'UPS Standard',
+    '08' => 'UPS Standard',
+    '10' => 'UPS Express'
+#    '11' => 'UPS Standard',
     '12' => '3 Day Select',
     '13' => 'Next Day Air Saver',
     '14' => 'Next Day Air Early AM',
