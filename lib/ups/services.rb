@@ -12,6 +12,7 @@ module UPS
     '13' => 'Next Day Air Saver',
     '14' => 'Next Day Air Early AM',
     '18' => 'UPS Express Saver',
+    '26' => 'UPS Express Saver',
     '28' => 'UPS Express Saver',
     '29' => 'UPS Worldwide Express Freight',
     '54' => 'Express Plus',
