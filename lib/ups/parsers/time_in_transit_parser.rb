@@ -9,6 +9,10 @@ module UPS
         @current_service_summary = {}
       end
 
+      def start_element(name)
+        super
+      end
+
       def end_element(name)
           super
           return unless name == :ServiceSummary
@@ -30,6 +34,8 @@ module UPS
           @current_service_summary[:EstimatedArrivalDate] = value.as_s
         elsif switch_active?(:EstimatedArrival, :DayOfWeek)
           @current_service_summary[:EstimatedArrivalDayOfWeek] = value.as_s
+        elsif switch_active?(:EstimatedArrival, :Time)
+          @current_service_summary[:Time] value.as_s
         end
       end
     end
