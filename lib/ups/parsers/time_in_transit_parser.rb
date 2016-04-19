@@ -35,7 +35,7 @@ module UPS
         elsif switch_active?(:EstimatedArrival, :DayOfWeek)
           @current_service_summary[:EstimatedArrivalDayOfWeek] = value.as_s
         elsif switch_active?(:EstimatedArrival, :Time)
-          @current_service_summary[:Time] value.as_s
+          @current_service_summary[:Time] = value.as_s
         end
       end
     end
